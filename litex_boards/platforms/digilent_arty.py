@@ -283,7 +283,7 @@ def i2s_pmod_io(pmod):
             IOStandard("LVCMOS33"),
         ),
     ]
-_i2s_pmod_io = i2s_pmod_io("pmoda") # I2S PMOD on JA.
+_i2s_pmod_io = i2s_pmod_io("pmodd") # I2S PMOD on JD.
 
 def sdcard_pmod_io(pmod):
     return [
@@ -307,7 +307,7 @@ def sdcard_pmod_io(pmod):
             IOStandard("LVCMOS33"),
         ),
 ]
-_sdcard_pmod_io = sdcard_pmod_io("pmodd") # SDCARD PMOD on JD.
+_sdcard_pmod_io = sdcard_pmod_io("pmoda") # SDCARD PMOD on JA.
 
 def numato_sdcard_pmod_io(pmod):
     return [

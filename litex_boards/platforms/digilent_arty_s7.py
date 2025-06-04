@@ -72,7 +72,6 @@ _io = [
     # SPIFlash
     ("spiflash", 0,  # clock needs to be accessed through STARTUPE2
         Subsignal("cs_n", Pins("M13")),
-        Subsignal("clk",  Pins("D11")),
         Subsignal("mosi", Pins("K17")),
         Subsignal("miso", Pins("K18")),
         Subsignal("wp",   Pins("L14")),
@@ -81,7 +80,6 @@ _io = [
     ),
     ("spiflash4x", 0,  # clock needs to be accessed through STARTUPE2
         Subsignal("cs_n", Pins("M13")),
-        Subsignal("clk",  Pins("D11")),
         Subsignal("dq",   Pins("K17", "K18", "L14", "M15")),
         IOStandard("LVCMOS33")
     ),
@@ -200,6 +198,22 @@ _connectors = [
         }
     ),
 ]
+
+def sdcard_pmod_io(pmod):
+    return [
+        # SDCard PMOD:
+        # - https://store.digilentinc.com/pmod-microsd-microsd-card-slot/
+        # - https://github.com/antmicro/arty-expansion-board
+        ("spisdcard", 0,
+            Subsignal("clk",  Pins(f"{pmod}:3")),
+            Subsignal("mosi", Pins(f"{pmod}:1"), Misc("PULLUP True")),
+            Subsignal("cs_n", Pins(f"{pmod}:0"), Misc("PULLUP True")),
+            Subsignal("miso", Pins(f"{pmod}:2"), Misc("PULLUP True")),
+            Misc("SLEW=FAST"), #NOTE: this is not supported by yosys+nextprn toolchain
+            IOStandard("LVCMOS33"),
+        ),
+]
+_sdcard_pmod_io = sdcard_pmod_io("pmoda") # SDCARD PMOD on JA.
 
 # Platform -----------------------------------------------------------------------------------------
 
