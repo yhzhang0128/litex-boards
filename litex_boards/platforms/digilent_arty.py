@@ -76,6 +76,16 @@ _io = [
         IOStandard("LVCMOS33"),
     ),
 
+    # VGA
+    ("vga", 0,
+        Subsignal("hsync_n", Pins("U14")),
+        Subsignal("vsync_n", Pins("V14")),
+        Subsignal("r", Pins("E15 E16 D15 C15")),
+        Subsignal("g", Pins("U12 V12 V10 V11")),
+        Subsignal("b", Pins("J17 J18 K15 J15")),
+        IOStandard("LVCMOS33")
+    ),
+
     # I2C
     ("i2c", 0,
         Subsignal("scl", Pins("L18")),

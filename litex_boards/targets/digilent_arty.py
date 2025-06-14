@@ -26,6 +26,7 @@ from litex.soc.cores.led import LedChaser
 from litex.soc.cores.gpio import GPIOIn, GPIOTristate
 from litex.soc.cores.xadc import XADC
 from litex.soc.cores.dna  import DNA
+from litex.soc.cores.video import VideoVGAPHY
 
 from litedram.modules import MT41K128M16
 from litedram.phy import s7ddrphy
@@ -39,6 +40,7 @@ class _CRG(LiteXModule):
         self.rst    = Signal()
         self.cd_sys = ClockDomain()
         self.cd_eth = ClockDomain()
+        self.cd_vga = ClockDomain()
         if with_dram:
             self.cd_sys4x     = ClockDomain()
             self.cd_sys4x_dqs = ClockDomain()
@@ -58,6 +60,7 @@ class _CRG(LiteXModule):
         pll.create_clkout(self.cd_eth, 25e6)
         self.comb += platform.request("eth_ref_clk").eq(self.cd_eth.clk)
         platform.add_false_path_constraints(self.cd_sys.clk, pll.clkin) # Ignore sys_clk to pll.clkin path created by SoC's rst.
+        pll.create_clkout(self.cd_vga, 40e6)
         if with_dram:
             pll.create_clkout(self.cd_sys4x,     4*sys_clk_freq)
             pll.create_clkout(self.cd_sys4x_dqs, 4*sys_clk_freq, phase=90)
@@ -181,6 +184,11 @@ class BaseSoC(SoCCore):
                 pads     = platform.request("pmoda"),
                 with_irq = self.irq.enabled
             )
+
+        # VGA --------------------------------------------------------------------------------------
+        self.videophy = VideoVGAPHY(platform.request("vga"), clock_domain="vga")
+        #self.add_video_terminal(phy=self.videophy, timings="800x600@60Hz", clock_domain="vga")
+        self.add_video_framebuffer(phy=self.videophy, timings="800x600@60Hz", clock_domain="vga")
 
 # Build --------------------------------------------------------------------------------------------
 
