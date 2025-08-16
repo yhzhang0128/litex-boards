@@ -164,11 +164,11 @@ class BaseSoC(SoCCore):
             self.comb += self.cpu.interrupt[16].eq(self.usb_ohci.interrupt)
 
         # Leds -------------------------------------------------------------------------------------
-        if with_led_chaser:
-            self.leds = LedChaser(
-                pads         = platform.request_all("user_led"),
-                sys_clk_freq = sys_clk_freq,
-            )
+        #if with_led_chaser:
+        #    self.leds = LedChaser(
+        #        pads         = platform.request_all("user_led"),
+        #        sys_clk_freq = sys_clk_freq,
+        #    )
 
         # Buttons ----------------------------------------------------------------------------------
         if with_buttons:
@@ -189,6 +189,9 @@ class BaseSoC(SoCCore):
         self.videophy = VideoVGAPHY(platform.request("vga"), clock_domain="vga")
         #self.add_video_terminal(phy=self.videophy, timings="800x600@60Hz", clock_domain="vga")
         self.add_video_framebuffer(phy=self.videophy, timings="800x600@60Hz", clock_domain="vga")
+
+        # ESP32 UART -------------------------------------------------------------------------------
+        self.add_uart(name="esp32uart", uart_name="esp32serial", baudrate=115200, fifo_depth=16)
 
 # Build --------------------------------------------------------------------------------------------
 
