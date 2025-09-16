@@ -17,6 +17,8 @@ from litex.build.openfpgaloader import OpenFPGALoader
 _io = [
     # Clk / Rst.
     ("clk27",  0, Pins("4"), IOStandard("LVCMOS33")),
+    ("cpu_reset0", 0,  Pins("88"), IOStandard("LVCMOS33")),
+    ("cpu_reset1", 0,  Pins("87"), IOStandard("LVCMOS33")),
 
     # Serial.
     ("serial", 0,
@@ -88,8 +90,8 @@ _io = [
     ("rgb_led", 0, Pins("79"), IOStandard("LVCMOS33")),
 
     # Buttons.
-    ("btn", 0,  Pins("88"), IOStandard("LVCMOS33")),
-    ("btn", 1,  Pins("87"), IOStandard("LVCMOS33")),
+    #("btn", 0,  Pins("88"), IOStandard("LVCMOS33")),
+    #("btn", 1,  Pins("87"), IOStandard("LVCMOS33")),
 
     # SDRAM (embedded in SIP, requires specific IO naming)
     ("O_sdram_clk",   0, Pins(1),  IOStandard("LVCMOS33")),

@@ -38,8 +38,10 @@ class _CRG(LiteXModule):
             self.cd_hdmi   = ClockDomain()
             self.cd_hdmi5x = ClockDomain()
 
-        # Clk
+        # Clk/Rst
         clk27 = platform.request("clk27")
+        rst0  = platform.request("cpu_reset0")
+        rst1  = platform.request("cpu_reset1")
 
         # Power on reset
         por_count = Signal(16, reset=2**16-1)
@@ -50,7 +52,7 @@ class _CRG(LiteXModule):
 
         # PLL
         self.pll = pll = GW2APLL(devicename=platform.devicename, device=platform.device)
-        self.comb += pll.reset.eq(~por_done)
+        self.comb += pll.reset.eq(~por_done | rst0 | rst1)
         pll.register_clkin(clk27, 27e6)
         pll.create_clkout(self.cd_sys, sys_clk_freq)
 
@@ -73,7 +75,7 @@ class BaseSoC(SoCCore):
     def __init__(self, toolchain="gowin", sys_clk_freq=48e6,
         with_led_chaser = True,
         with_rgb_led    = False,
-        with_buttons    = True,
+        with_buttons    = False,
         with_spi_flash  = False,
         with_video_terminal  = False,
         with_video_colorbars = False,
