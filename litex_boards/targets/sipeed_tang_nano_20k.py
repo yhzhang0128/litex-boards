@@ -120,7 +120,7 @@ class BaseSoC(SoCCore):
             self.add_sdram("sdram",
                 phy           = self.sdrphy,
                 module        = M12L64322A(sys_clk_freq, "1:1"), # FIXME.
-                l2_cache_size = 128,
+                l2_cache_size = kwargs.get("l2_size", 8192),
             )
 
         # Video ------------------------------------------------------------------------------------
