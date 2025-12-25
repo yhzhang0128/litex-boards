@@ -83,10 +83,10 @@ class BaseSoC(SoCCore):
             self.add_spi_flash(mode="4x", module=S25FL128S(Codes.READ_1_1_4), with_master=True)
 
         # Leds -------------------------------------------------------------------------------------
-        #if with_led_chaser:
-        #    self.leds = LedChaser(
-        #        pads         = platform.request_all("user_led"),
-        #        sys_clk_freq = sys_clk_freq)
+        if with_led_chaser:
+            self.leds = LedChaser(
+                pads         = platform.request_all("user_led"),
+                sys_clk_freq = sys_clk_freq)
 
         # VGA --------------------------------------------------------------------------------------
         self.videophy = VideoVGAPHY(platform.request("vga"), clock_domain="vga")

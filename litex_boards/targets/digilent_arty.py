@@ -117,6 +117,9 @@ class BaseSoC(SoCCore):
                 l2_cache_size = kwargs.get("l2_size", 8192)
             )
 
+        # ESP32 UART -------------------------------------------------------------------------------
+        self.add_uart(name="esp32uart", uart_name="esp32serial", baudrate=115200, fifo_depth=16)
+
         # Ethernet / Etherbone ---------------------------------------------------------------------
         if with_ethernet or with_etherbone:
             self.ethphy = LiteEthPHYMII(

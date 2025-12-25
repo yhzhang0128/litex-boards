@@ -67,6 +67,19 @@ _io = [
         IOStandard("LVCMOS33")
     ),
 
+    # ESP32 UART
+    ("esp32serial", 0,
+        Subsignal("rts", Pins("D4"),Misc("PULLUP False")), # Pin1 of Pmod D
+        Subsignal("tx", Pins("D3")),  # Pin2 of Pmod D
+        Subsignal("rx", Pins("F4")),  # Pin3 of Pmod D
+        Subsignal("cts", Pins("F3"),Misc("PULLUP False")), # Pin4 of Pmod D
+        Subsignal("int", Pins("E2"),Misc("PULLUP False")), # Pin5 of Pmod D
+        Subsignal("en", Pins("D2"),Misc("PULLUP True")), # Pin6 of Pmod D
+        Subsignal("sel", Pins("H2"),Misc("PULLUP False")), # Pin7 of Pmod D
+        Subsignal("gpio", Pins("G2"),Misc("PULLUP False")), # Pin8 of Pmod D
+        IOStandard("LVCMOS33")
+    ),
+
     # SPI
     ("spi", 0,
         Subsignal("clk",  Pins("F1")),
@@ -293,7 +306,7 @@ def i2s_pmod_io(pmod):
             IOStandard("LVCMOS33"),
         ),
     ]
-_i2s_pmod_io = i2s_pmod_io("pmodd") # I2S PMOD on JD.
+#_i2s_pmod_io = i2s_pmod_io("pmodd") # I2S PMOD on JD.
 
 def sdcard_pmod_io(pmod):
     return [
@@ -340,7 +353,7 @@ def numato_sdcard_pmod_io(pmod):
             IOStandard("LVCMOS33"),
         ),
 ]
-_numato_sdcard_pmod_io = numato_sdcard_pmod_io("pmodd") # SDCARD PMOD on JD.
+#_numato_sdcard_pmod_io = numato_sdcard_pmod_io("pmodd") # SDCARD PMOD on JD.
 
 # Platform -----------------------------------------------------------------------------------------
 
