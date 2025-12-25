@@ -53,6 +53,19 @@ _io = [
         IOStandard("LVCMOS33")
     ),
 
+    # ESP32 UART
+    ("esp32serial", 0,
+        Subsignal("rts", Pins("V15"),Misc("PULLUP False")), # Pin1 of Pmod D
+        Subsignal("tx", Pins("U12")),  # Pin2 of Pmod D
+        Subsignal("rx", Pins("V13")),  # Pin3 of Pmod D
+        Subsignal("cts", Pins("T12"),Misc("PULLUP False")), # Pin4 of Pmod D
+        Subsignal("int", Pins("T13"),Misc("PULLUP False")), # Pin5 of Pmod D
+        Subsignal("en", Pins("R11"),Misc("PULLUP True")), # Pin6 of Pmod D
+        Subsignal("sel", Pins("T11"),Misc("PULLUP False")), # Pin7 of Pmod D
+        Subsignal("gpio", Pins("U11"),Misc("PULLUP False")), # Pin8 of Pmod D
+        IOStandard("LVCMOS33")
+    ),
+
     # SPI
     ("spi", 0,
         Subsignal("clk",  Pins("G16")),
